@@ -8,5 +8,4 @@
     <include layout="@layout/toolbar"/>
 
 
-
 </android.support.constraint.ConstraintLayout>

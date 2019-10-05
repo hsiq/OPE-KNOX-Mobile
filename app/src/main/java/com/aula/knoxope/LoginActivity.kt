@@ -25,7 +25,7 @@ class LoginActivity : AppCompatActivity() {
         val valorSenha = senha.text.toString()
 
         if (valorEmail == "aluno"&& valorSenha == "impacta"){
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, ListClienteActivity::class.java)
             startActivityForResult(intent, 1)
 
         }else{

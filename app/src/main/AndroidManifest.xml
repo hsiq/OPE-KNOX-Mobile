@@ -9,7 +9,10 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".ListarActivity"></activity>
+        <activity android:name=".Perfil"></activity>
+        <activity android:name=".ListCasoActivity" />
+        <activity android:name=".ListClienteActivity" />
+        <activity android:name=".ListarActivity" />
         <activity android:name=".ConfiguracaoActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
