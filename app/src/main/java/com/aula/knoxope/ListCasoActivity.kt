@@ -72,8 +72,8 @@ class ListCasoActivity : AppCompatActivity() ,  NavigationView.OnNavigationItemS
             }
 
             R.id.nav_sair -> {
-                finish()
-            }
+                val intent = Intent(context, LoginActivity::class.java)
+                startActivityForResult(intent, 1)            }
 
 
         }

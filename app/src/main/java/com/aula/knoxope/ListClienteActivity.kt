@@ -9,6 +9,8 @@ import android.os.Handler
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.support.v7.widget.Toolbar
 import android.view.Menu
@@ -23,6 +25,9 @@ class ListClienteActivity : AppCompatActivity(),  NavigationView.OnNavigationIte
 
 
     private val context: Context get() = this
+    private var disciplinas = listOf<Disciplina>()
+    private var REQUEST_CADASTRO = 1
+    private var REQUEST_REMOVE= 2
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +39,10 @@ class ListClienteActivity : AppCompatActivity(),  NavigationView.OnNavigationIte
         supportActionBar?.title = "Clientes"
 
         configuraMenuLateral()
+
+        recyclerDisciplinas?.layoutManager = LinearLayoutManager(context)
+        recyclerDisciplinas?.itemAnimator = DefaultItemAnimator()
+        recyclerDisciplinas?.setHasFixedSize(true)
 
     }
 
@@ -76,8 +85,8 @@ class ListClienteActivity : AppCompatActivity(),  NavigationView.OnNavigationIte
             }
 
             R.id.nav_sair -> {
-                finish()
-            }
+                val intent = Intent(context, LoginActivity::class.java)
+                startActivityForResult(intent, 1)              }
 
 
         }
@@ -138,6 +147,42 @@ class ListClienteActivity : AppCompatActivity(),  NavigationView.OnNavigationIte
             finish()
         }
         return super.onOptionsItemSelected(item)
+    }
+    //CARDVIEW
+
+    override fun onResume() {
+        super.onResume()
+        // task para recuperar as disciplinas
+        taskDisciplinas()
+    }
+
+    fun taskDisciplinas() {
+        // Criar a Thread
+
+        Thread {
+            // Código para procurar as disciplinas
+            // que será executado em segundo plano / Thread separada
+            this.disciplinas = DisciplinaService.getDisciplinas(context)
+            runOnUiThread {
+                // Código para atualizar a UI com a lista de disciplinas
+                recyclerDisciplinas?.adapter = DisciplinaAdapter(this.disciplinas) { onClickDisciplina(it) }
+            }
+        }.start()
+
+    }
+
+    // tratamento do evento de clicar em uma disciplina
+    fun onClickDisciplina(disciplina: Disciplina) {
+        Toast.makeText(context, "Clicou disciplina ${disciplina.nome}", Toast.LENGTH_SHORT).show()
+
+    }
+
+    // esperar o retorno do cadastro da disciplina
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_CADASTRO || requestCode == REQUEST_REMOVE ) {
+            // atualizar lista de disciplinas
+            taskDisciplinas()
+        }
     }
 
 }

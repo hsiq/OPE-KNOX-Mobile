@@ -14,6 +14,8 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.support.design.widget.NavigationView
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -22,34 +24,21 @@ import kotlinx.android.synthetic.main.toolbar.*
 class MainActivity : AppCompatActivity(),  NavigationView.OnNavigationItemSelectedListener {
 
     private val context: Context get() = this
+    private var disciplinas = listOf<Disciplina>()
+    private var REQUEST_CADASTRO = 1
+    private var REQUEST_REMOVE= 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         var toolbar = findViewById<Toolbar>(R.id.toolbar)
 
-
-
-
         setSupportActionBar(toolbar)
-
-
-
-
-        val botaoclientes = findViewById<Button>(R.id.clientes)
-
-
-
-
         configuraMenuLateral()
 
-        botaoclientes.setOnClickListener { onClickCliente() }
-
-        val botaocasos = findViewById<Button>(R.id.casos)
-        botaocasos.setOnClickListener { onClickCaso() }
-
-        val botaorelatorio = findViewById<Button>(R.id.relatorio)
-        botaorelatorio.setOnClickListener { onClickRelatorio() }
+        recyclerDisciplinas?.layoutManager = LinearLayoutManager(context)
+        recyclerDisciplinas?.itemAnimator = DefaultItemAnimator()
+        recyclerDisciplinas?.setHasFixedSize(true)
     }
 
 
@@ -92,8 +81,8 @@ class MainActivity : AppCompatActivity(),  NavigationView.OnNavigationItemSelect
             }
 
             R.id.nav_sair -> {
-                finish()
-            }
+                val intent = Intent(context, LoginActivity::class.java)
+                startActivityForResult(intent, 1)              }
 
 
         }
@@ -104,31 +93,6 @@ class MainActivity : AppCompatActivity(),  NavigationView.OnNavigationItemSelect
     }
 
 
-    fun onClickCliente(){
-        val intent = Intent(context, ListarActivity::class.java)
-        val params = Bundle()
-        params.putString("nome", "Clientes")
-        intent.putExtras(params)
-        startActivityForResult(intent, 1)
-
-    }
-    fun onClickCaso(){
-        val intent = Intent(context, ListarActivity::class.java)
-        val params = Bundle()
-        params.putString("nome", "Casos")
-        intent.putExtras(params)
-        startActivityForResult(intent, 1)
-
-    }
-
-    fun onClickRelatorio(){
-        val intent = Intent(context, ListarActivity::class.java)
-        val params = Bundle()
-        params.putString("nome", "Relatório")
-        intent.putExtras(params)
-        startActivityForResult(intent, 1)
-
-    }
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -180,6 +144,42 @@ class MainActivity : AppCompatActivity(),  NavigationView.OnNavigationItemSelect
         return super.onOptionsItemSelected(item)
     }
 
+    //CARDVIEW
+
+    override fun onResume() {
+        super.onResume()
+        // task para recuperar as disciplinas
+        taskDisciplinas()
+    }
+
+    fun taskDisciplinas() {
+        // Criar a Thread
+
+        Thread {
+            // Código para procurar as disciplinas
+            // que será executado em segundo plano / Thread separada
+            this.disciplinas = DisciplinaService.getDisciplinas(context)
+            runOnUiThread {
+                // Código para atualizar a UI com a lista de disciplinas
+                recyclerDisciplinas?.adapter = DisciplinaAdapter(this.disciplinas) { onClickDisciplina(it) }
+            }
+        }.start()
+
+    }
+
+    // tratamento do evento de clicar em uma disciplina
+    fun onClickDisciplina(disciplina: Disciplina) {
+        Toast.makeText(context, "Clicou disciplina ${disciplina.nome}", Toast.LENGTH_SHORT).show()
+
+    }
+
+    // esperar o retorno do cadastro da disciplina
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_CADASTRO || requestCode == REQUEST_REMOVE ) {
+            // atualizar lista de disciplinas
+            taskDisciplinas()
+        }
+    }
 }
 
 

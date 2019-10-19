@@ -73,8 +73,8 @@ class Perfil : AppCompatActivity(),  NavigationView.OnNavigationItemSelectedList
             }
 
             R.id.nav_sair -> {
-                finish()
-            }
+                val intent = Intent(context, LoginActivity::class.java)
+                startActivityForResult(intent, 1)              }
 
 
         }
