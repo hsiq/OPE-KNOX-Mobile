@@ -173,7 +173,11 @@ class ListClienteActivity : AppCompatActivity(),  NavigationView.OnNavigationIte
 
     // tratamento do evento de clicar em uma disciplina
     fun onClickDisciplina(disciplina: Disciplina) {
-        Toast.makeText(context, "Clicou disciplina ${disciplina.nome}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Cliente: ${disciplina.nome}", Toast.LENGTH_SHORT).show()
+        val intent = Intent(context, ClienteActivity::class.java)
+        intent.putExtra("disciplina", disciplina)
+        startActivityForResult(intent, REQUEST_REMOVE)
+
 
     }
 

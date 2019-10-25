@@ -20,10 +20,12 @@ class Disciplina : Serializable {
     var email = ""
     var pis = ""
     var carteira_trabalho = ""
+    var cep = ""
 
 
 
-    var foto = "https://www.pngfind.com/pngs/m/515-5153597_cliente-icon-png-customer-icon-vector-png-transparent.png"
+    var foto = "https://image.flaticon.com/icons/png/512/16/16480.png"
+    //var foto = "https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-512.png"
 
     override fun toString(): String {
         return "Disciplina(nome='$nome')"
