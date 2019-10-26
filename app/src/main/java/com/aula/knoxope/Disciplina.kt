@@ -24,7 +24,7 @@ class Disciplina : Serializable {
 
 
 
-    var foto = "https://image.flaticon.com/icons/png/512/16/16480.png"
+    var foto = R.drawable.people_ic
     //var foto = "https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-512.png"
 
     override fun toString(): String {

@@ -9,8 +9,7 @@ import java.io.Console
 
 object DisciplinaService {
 
-    //TROQUE PELA URL DE ONDE ESTÁ O WS
-    // Veja um exemplo no repositório https://github.com/fesousa/aula-android-kotlin-api
+
     val host = "https://knoxapp180120.herokuapp.com/cliente"
     val TAG = "WS_LMSApp"
 
@@ -26,18 +25,6 @@ object DisciplinaService {
         }
     }
 
-    fun save(disciplina: Disciplina): Response {
-        val json = HttpHelper.post("$host/disciplinas", disciplina.toJson())
-        return parserJson(json)
-    }
-
-    fun delete(disciplina: Disciplina): Response {
-        Log.d(TAG, disciplina.cpf.toString())
-        val url = "$host/disciplinas/${disciplina.cpf}"
-        val json = HttpHelper.delete(url)
-        Log.d(TAG, json)
-        return parserJson(json)
-    }
 
     inline fun <reified T> parserJson(json: String): T {
         val type = object : TypeToken<T>(){}.type

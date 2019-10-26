@@ -39,12 +39,7 @@ class ClienteActivity : AppCompatActivity() {
 
 
 
-        Picasso.with(this).load(disciplina?.foto).fit().into(imagemDisciplina,
-            object: com.squareup.picasso.Callback{
-                override fun onSuccess() {}
 
-                override fun onError() { }
-            })
     }
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         // id do item clicado

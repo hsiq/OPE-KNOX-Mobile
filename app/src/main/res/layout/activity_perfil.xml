@@ -39,7 +39,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="João" />
+                            android:text="Nome:" />
 
                     <TextView
                             android:id="@+id/textView6"
@@ -47,7 +47,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
 
-                            android:text="Joao@joao" />
+                            android:text="E-Mail:" />
 
                     <TextView
                             android:id="@+id/textView7"
@@ -55,7 +55,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
 
-                            android:text="Advogado" />
+                            android:text="Cargo:" />
 
                     <TextView
                             android:id="@+id/textView5"
@@ -63,7 +63,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
 
-                            android:text="Rua amelia prestes maia" />
+                            android:text="RG:" />
                 </LinearLayout>
 
             </LinearLayout>
