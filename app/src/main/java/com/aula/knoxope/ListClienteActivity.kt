@@ -64,9 +64,9 @@ class ListClienteActivity : AppCompatActivity(),  NavigationView.OnNavigationIte
         when (item.itemId) {
 
 
-            R.id.nav_perfil -> {
-                val intent = Intent(context, Perfil::class.java)
-                startActivityForResult(intent, 1)              }
+        //    R.id.nav_perfil -> {
+        //        val intent = Intent(context, Perfil::class.java)
+        //        startActivityForResult(intent, 1)              }
 
 
             R.id.nav_cliente -> {
@@ -125,6 +125,9 @@ class ListClienteActivity : AppCompatActivity(),  NavigationView.OnNavigationIte
             Toast.makeText(context, "Botão de buscar", Toast.LENGTH_LONG).show()
         } else if (id == R.id.action_atualizar) {
 
+            taskDisciplinas()
+
+
             //loading
             val builder = AlertDialog.Builder(this)
             val dialogView = layoutInflater.inflate(R.layout.progress_dialog,null)
@@ -148,6 +151,21 @@ class ListClienteActivity : AppCompatActivity(),  NavigationView.OnNavigationIte
 
     override fun onResume() {
         super.onResume()
+
+
+
+        //loading
+        val builder = AlertDialog.Builder(this)
+        val dialogView = layoutInflater.inflate(R.layout.progress_dialog,null)
+        val message = dialogView.findViewById<TextView>(R.id.message)
+        message.text = "Carregando..."
+        builder.setView(dialogView)
+        builder.setCancelable(false)
+        val dialog = builder.create()
+        dialog.show()
+
+        Handler().postDelayed({dialog.dismiss()},3000)
+
         // task para recuperar as disciplinas
         taskDisciplinas()
     }
@@ -173,7 +191,6 @@ class ListClienteActivity : AppCompatActivity(),  NavigationView.OnNavigationIte
         val intent = Intent(context, ClienteActivity::class.java)
         intent.putExtra("disciplina", disciplina)
         startActivityForResult(intent, REQUEST_REMOVE)
-
 
     }
 

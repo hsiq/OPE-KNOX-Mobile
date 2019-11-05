@@ -51,15 +51,12 @@ class Perfil : AppCompatActivity(),  NavigationView.OnNavigationItemSelectedList
         when (item.itemId) {
 
 
-            R.id.nav_perfil -> {
-                val intent = Intent(context, Perfil::class.java)
-                startActivityForResult(intent, 1)
-            }
+           // R.id.nav_perfil -> {
+           //     val intent = Intent(context, Perfil::class.java)
+           //     startActivityForResult(intent, 1)
+           // }
 
-            R.id.nav_config -> {
-                val intent = Intent(context, ConfiguracaoActivity::class.java)
-                startActivityForResult(intent, 1)
-            }
+
 
             R.id.nav_cliente -> {
                 val intent = Intent(context, ListClienteActivity::class.java)

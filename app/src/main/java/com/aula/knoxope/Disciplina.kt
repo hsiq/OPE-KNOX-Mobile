@@ -1,10 +1,13 @@
 package com.aula.knoxope
 
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 import com.google.gson.GsonBuilder
 import java.io.Serializable
 
+@Entity(tableName = "disciplina")
 class Disciplina : Serializable {
-
+    @PrimaryKey
     var cpf:Long = 0
     var nome = ""
     var rg = ""

@@ -59,14 +59,11 @@ class MainActivity : AppCompatActivity(),  NavigationView.OnNavigationItemSelect
         when (item.itemId) {
 
 
-            R.id.nav_perfil -> {
-                Toast.makeText(this, "Clicou Mensagens", Toast.LENGTH_SHORT).show()
-            }
+           // R.id.nav_perfil -> {
+          //      Toast.makeText(this, "Clicou Mensagens", Toast.LENGTH_SHORT).show()
+           // }
 
-            R.id.nav_config -> {
-                val intent = Intent(context, ConfiguracaoActivity::class.java)
-                startActivityForResult(intent, 1)
-            }
+
 
             R.id.nav_cliente -> {
                 Toast.makeText(this, "Clicou client", Toast.LENGTH_SHORT).show()

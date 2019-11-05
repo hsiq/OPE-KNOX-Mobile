@@ -11,7 +11,7 @@ import java.io.Console
 object AdvogadoService {
 
 
-    val host = "https://knoxapp180120.herokuapp.com/cliente"
+    val host = "https://knoxapp180120.herokuapp.com/login/"
     val TAG = "WS_LMSApp"
 
     fun getAdvogados (context: Context): List<Advogado> {
@@ -26,6 +26,11 @@ object AdvogadoService {
         }
     }
 
+    fun login(advogadoLogin: AdvogadoLogin): Response {
+        val json = HttpHelper.post("$host", advogadoLogin.toJson())
+        Log.d("BATATA",json)
+        return parserJson(json)
+    }
 
     inline fun <reified T> parserJson(json: String): T {
         val type = object : TypeToken<T>(){}.type

@@ -9,17 +9,25 @@ import android.os.Handler
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_list_caso.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.layoutMenuLateral
+import kotlinx.android.synthetic.main.activity_main.menu_lateral
 import kotlinx.android.synthetic.main.toolbar.*
 
 class ListCasoActivity : AppCompatActivity() ,  NavigationView.OnNavigationItemSelectedListener {
 
+    private var casos = listOf<Caso>()
+    private var REQUEST_CADASTRO = 1
+    private var REQUEST_REMOVE= 2
     private val context: Context get() = this
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +39,11 @@ class ListCasoActivity : AppCompatActivity() ,  NavigationView.OnNavigationItemS
 
         configuraMenuLateral()
 
-    }
 
+        recyclerCaso?.layoutManager = LinearLayoutManager(context)
+        recyclerCaso?.itemAnimator = DefaultItemAnimator()
+        recyclerCaso?.setHasFixedSize(true)
+    }
 
     // configuração do navigation Drawer com a toolbar
     private fun configuraMenuLateral() {
@@ -51,9 +62,9 @@ class ListCasoActivity : AppCompatActivity() ,  NavigationView.OnNavigationItemS
         when (item.itemId) {
 
 
-            R.id.nav_perfil -> {
-                val intent = Intent(context, Perfil::class.java)
-                startActivityForResult(intent, 1)              }
+          //  R.id.nav_perfil -> {
+          //      val intent = Intent(context, Perfil::class.java)
+           //     startActivityForResult(intent, 1)              }
 
 
 
@@ -113,6 +124,7 @@ class ListCasoActivity : AppCompatActivity() ,  NavigationView.OnNavigationItemS
             Toast.makeText(context, "Botão de buscar", Toast.LENGTH_LONG).show()
         } else if (id == R.id.action_atualizar) {
 
+            taskCaso()
             //loading
             val builder = AlertDialog.Builder(this)
             val dialogView = layoutInflater.inflate(R.layout.progress_dialog,null)
@@ -132,6 +144,47 @@ class ListCasoActivity : AppCompatActivity() ,  NavigationView.OnNavigationItemS
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onResume() {
+        super.onResume()
+
+        //loading
+        val builder = AlertDialog.Builder(this)
+        val dialogView = layoutInflater.inflate(R.layout.progress_dialog,null)
+        val message = dialogView.findViewById<TextView>(R.id.message)
+        message.text = "Carregando..."
+        builder.setView(dialogView)
+        builder.setCancelable(false)
+        val dialog = builder.create()
+        dialog.show()
+
+        Handler().postDelayed({dialog.dismiss()},3000)
+
+        // task para recuperar as disciplinas
+        taskCaso()
+    }
+
+    fun taskCaso() {
+        // Criar a Thread
+
+        Thread {
+            // Código para procurar as disciplinas
+            // que será executado em segundo plano / Thread separada
+            this.casos = CasoService.getCaso(context)
+            runOnUiThread {
+                // Código para atualizar a UI com a lista de disciplinas
+                recyclerCaso?.adapter = CasoAdapter(this.casos) { onClickCaso(it) }
+            }
+        }.start()
+
+    }
+    fun onClickCaso(caso: Caso) {
+        val intent = Intent(context, VerCasoActivity::class.java)
+        intent.putExtra("caso", caso)
+        startActivityForResult(intent, REQUEST_REMOVE)
+
+    }
+
 
 }
 

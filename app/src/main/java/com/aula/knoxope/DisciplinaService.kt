@@ -11,7 +11,6 @@ object DisciplinaService {
 
 
     val host = "https://knoxapp180120.herokuapp.com/cliente"
-    val TAG = "WS_LMSApp"
 
     fun getDisciplinas (context: Context): List<Disciplina> {
         if (AndroidUtils.isInternetDisponivel(context)) {
@@ -21,10 +20,16 @@ object DisciplinaService {
 
             return parserJson(json)
         } else {
+            Log.d("BATATA",ArrayList<Disciplina>().toString())
+
             return ArrayList<Disciplina>()
         }
     }
 
+    fun save(disciplina: Advogado): Response {
+        val json = HttpHelper.post("$host/disciplinas", disciplina.toJson())
+        return parserJson(json)
+    }
 
     inline fun <reified T> parserJson(json: String): T {
         val type = object : TypeToken<T>(){}.type

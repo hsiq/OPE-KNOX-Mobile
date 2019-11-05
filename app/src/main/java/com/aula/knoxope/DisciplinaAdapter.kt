@@ -27,9 +27,7 @@ class DisciplinaAdapter (
             cardImg = view.findViewById<ImageView>(R.id.cardImg)
             cardProgress = view.findViewById<ProgressBar>(R.id.cardProgress)
             cardView = view.findViewById<CardView>(R.id.card_cliente)
-
         }
-
     }
 
     // Quantidade de disciplinas na lista

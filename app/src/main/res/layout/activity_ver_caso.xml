@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical">
+
+    <!--toolbar-->
+    <include layout="@layout/toolbar" />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+        <android.support.v7.widget.CardView
+                android:id="@+id/car_caso"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                card_view:cardBackgroundColor="#ffffff"
+                card_view:cardCornerRadius="2dp"
+                card_view:cardElevation="6dp">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="2dp">
+                <ImageView
+                        android:id="@+id/imagemDisciplina"
+                        android:layout_width="300dp"
+                        android:layout_height="250dp"
+                        android:src="@drawable/caso_icon"
+                        android:layout_gravity="center"
+                        android:scaleType="center"/>
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_marginTop="6dp"></View>
+
+                <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/assunto"
+                            android:textStyle="bold"
+                            android:textSize="16dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:text="assunto"/>
+
+                </ScrollView>
+
+                <TextView
+                        android:id="@+id/numeroProcesso"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        />
+
+                <TextView
+                        android:id="@+id/juiz"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        />
+
+                <TextView
+                        android:id="@+id/classe"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="classe"/>
+                <TextView
+                        android:id="@+id/local"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        />
+                <TextView
+                        android:id="@+id/url"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        />
+
+
+                <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/downloadButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+
+                        android:gravity="bottom|end"
+                        card_view:srcCompat="@android:drawable/ic_menu_set_as" />
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+
+
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
